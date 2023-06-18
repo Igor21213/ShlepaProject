@@ -1,2 +1,2 @@
-# ShlepaProject
+# FloppaProject
 Create a new Game :)
