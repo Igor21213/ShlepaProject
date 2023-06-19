@@ -5,19 +5,23 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     private float _PlayerSpeed;
-    private float _JumpPower = 50f;
+    private float _JumpPower = 150f;
 
+    private SpriteRenderer _sr;
     private Rigidbody _rb;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         PlayerController();
         PlayerSpeed();
+        PlayerJump();
+        PlayerRotation();
     }
 
     private void PlayerController()
@@ -28,7 +32,7 @@ public class MovePlayer : MonoBehaviour
 
     private void PlayerJump()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.W) && GroundCheck.PlayeOnGround == true)
         {
             _rb.AddForce(new Vector3(0, 1, 0) * _JumpPower);
         }
@@ -43,6 +47,17 @@ public class MovePlayer : MonoBehaviour
         else
         {
             _PlayerSpeed = 40f;
+        }
+    }
+    public void PlayerRotation()
+    {
+        if(Input.GetKey(KeyCode.D))
+        {
+            _sr.flipX = true;
+        }
+        if(Input.GetKey(KeyCode.A))
+        {
+            _sr.flipX = false;
         }
     }
 }
